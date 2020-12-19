@@ -2,7 +2,10 @@ const theme = {
     colors: {
       textPrimary: '#24292e',
       textSecondary: '#FDFCFE',
-      primary: '#24292e',
+      primary: '#0065D8',
+      navBar: '#24292e',
+      backgroundMain: '#e1e4e8',
+      backgroundCard: 'white',
     },
     fontSizes: {
       body: 14,
