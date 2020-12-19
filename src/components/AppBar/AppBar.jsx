@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 
 import theme from '../../theme';
@@ -17,8 +17,10 @@ const AppBar = () => {
     return (
         <TouchableWithoutFeedback>
             <View style={styles.container}>
-                <AppBarTab value={'Repository'} />
-                <AppBarTab value={'SignIn'} route={'SignIn'} />
+                <ScrollView style={{marginHorizontal: 20,}} horizontal>
+                    <AppBarTab value={'Repository'} />
+                    <AppBarTab value={'SignIn'} route={'SignIn'} />
+                </ScrollView>
             </View>
         </TouchableWithoutFeedback>
     );
