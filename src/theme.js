@@ -2,6 +2,7 @@ const theme = {
     colors: {
       textPrimary: '#24292e',
       textSecondary: '#FDFCFE',
+      textError: 'red',
       primary: '#0165D4',
       navBar: '#24292e',
       backgroundMain: '#e1e4e8',
