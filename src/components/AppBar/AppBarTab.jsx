@@ -7,9 +7,9 @@ import theme from '../../theme';
 const styles = StyleSheet.create({
     text: {
         color: theme.colors.textSecondary,
-        padding: 15,
+        padding: 10,
         fontFamily: theme.fonts.main,
-        fontSize: 24,
+        fontSize: theme.fontSizes.subheading,
         fontWeight: theme.fontWeights.bold
     }
 });

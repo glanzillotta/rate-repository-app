@@ -7,9 +7,10 @@ import AppBarTab from './AppBarTab';
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: Constants.statusBarHeight,
+        marginTop: Constants.statusBarHeight,
+        padding: 10,
         backgroundColor: theme.colors.navBar,
-        flexDirection: 'row'
+        flexDirection: 'row',
     }
 });
 
@@ -17,7 +18,7 @@ const AppBar = () => {
     return (
         <TouchableWithoutFeedback>
             <View style={styles.container}>
-                <ScrollView style={{marginHorizontal: 20,}} horizontal>
+                <ScrollView horizontal>
                     <AppBarTab value={'Repository'} />
                     <AppBarTab value={'SignIn'} route={'SignIn'} />
                 </ScrollView>
