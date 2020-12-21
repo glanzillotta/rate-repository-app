@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeights.bold,
     color: theme.colors.textSecondary,
     textAlign: 'center',
-    border: 1,
+    borderWidth: 1,
     borderStyle: 'solid',
     borderColor: theme.colors.textPrimary,
     borderRadius: 3,

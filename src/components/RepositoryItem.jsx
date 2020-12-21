@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: theme.fontSizes.subheading,
+        fontFamily: theme.fonts.main,
         paddingTop: 5,
     },
     bold: {
