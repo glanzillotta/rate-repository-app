@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-native';
 import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { Formik, } from 'formik';
 import * as yup from 'yup';
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
   form: {
     flexGrow: 1,
     backgroundColor: theme.colors.backgroundCard,
-    paddingTop:30
+    paddingTop: 30
   },
   singInButton: {
     backgroundColor: theme.colors.primary,
@@ -38,12 +39,12 @@ const validationSchema = yup.object().shape({
   password: yup.string().required('Password is required').trim()
 });
 
-const SignInForm = ({onSubmit}) => {
+const SignInForm = ({ onSubmit }) => {
 
   return (
     <View style={styles.form}>
       <FormikTextInput name={'username'} placeholder={'Username'} />
-      <FormikTextInput name={'password'} secureTextEntry placeholder={'Password'}/>
+      <FormikTextInput name={'password'} secureTextEntry placeholder={'Password'} />
       <TouchableWithoutFeedback onPress={onSubmit}>
         <Text style={styles.singInButton}>Sign in</Text>
       </TouchableWithoutFeedback>
@@ -52,18 +53,20 @@ const SignInForm = ({onSubmit}) => {
 };
 
 const SignIn = () => {
-  const [signIn]=useSignIn();
+  const [signIn] = useSignIn();
+  const history = useHistory();
 
-  const onSubmit = ({username, password}) => {
+  const onSubmit = ({ username, password }) => {
     try {
-      signIn({ username, password });
+      const { data } = signIn({ username, password });
+      data ? history.push('/') : null;
     } catch (e) {
       console.log(e);
     }
   };
 
   return (<Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
-    {({handleSubmit}) => <SignInForm onSubmit={handleSubmit}/>}
+    {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
   </Formik>);
 };
 
