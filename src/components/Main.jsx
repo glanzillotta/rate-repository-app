@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-native';
 
 import theme from '../theme';
 import RepositoryList from './RepositoryList';
-import AppBar from './AppBar/AppBar';
+import AppBar from './AppBar';
 import SignIn from './SignIn';
 
 const styles = StyleSheet.create({

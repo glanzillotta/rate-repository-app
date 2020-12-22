@@ -14,7 +14,9 @@ const styles = StyleSheet.create({
     }
 });
 
+
 const AppBarTab = ({ value, route }) => {
+
     return (
         <TouchableWithoutFeedback>
             <View>
