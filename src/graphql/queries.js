@@ -27,3 +27,12 @@ query {
 
 ${REPOSITORY}
 `;
+
+
+export const GET_TOKEN = gql`
+    mutation AuthorizationToken($username:String!, $password:String!) {
+        authorize(credentials:{username:$username, password:$password }){
+            accessToken
+        }
+\   }
+`;
