@@ -43,31 +43,35 @@ const SignInForm = ({ onSubmit }) => {
 
   return (
     <View style={styles.form}>
-      <FormikTextInput name={'username'} placeholder={'Username'} />
-      <FormikTextInput name={'password'} secureTextEntry placeholder={'Password'} />
-      <TouchableWithoutFeedback onPress={onSubmit}>
+      <FormikTextInput testID='usernameField' name='username' placeholder='Username' />
+      <FormikTextInput testID='passwordField' name='password' secureTextEntry placeholder='Password' />
+      <TouchableWithoutFeedback testID='singInButton' onPress={onSubmit}>
         <Text style={styles.singInButton}>Sign in</Text>
       </TouchableWithoutFeedback>
     </View>
   );
 };
 
+export const SignInContainer = ({ onSubmit}) => {
+  return (<Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
+    {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+  </Formik>);
+};
+
 const SignIn = () => {
   const [signIn] = useSignIn();
   const history = useHistory();
 
-  const onSubmit = ({ username, password }) => {
+  const onSubmit = async({ username, password }) => {
     try {
-      const { data } = signIn({ username, password });
+      const { data } = await signIn({ username, password });
       data ? history.push('/') : null;
     } catch (e) {
       console.log(e);
     }
   };
 
-  return (<Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
-    {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
-  </Formik>);
+  return<SignInContainer onSubmit={onSubmit} />;
 };
 
 export default SignIn;
