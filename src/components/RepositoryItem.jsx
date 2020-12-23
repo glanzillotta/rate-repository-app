@@ -53,16 +53,16 @@ const RepositoryItem = ({ item }) => {
             <View style={styles.headerCard}>
                 <Image style={styles.image} source={{ uri: item.ownerAvatarUrl }} />
                 <View style={styles.detail}>
-                    <Text style={{ ...styles.bold, ...styles.text }}>{item.fullName}</Text>
-                    <Text style={styles.text}>{item.description}</Text>
-                    <Text style={{ ...styles.language, ...styles.text }}>{item.language}</Text>
+                    <Text testID='fullName' style={{ ...styles.bold, ...styles.text }}>{item.fullName}</Text>
+                    <Text testID='description' style={styles.text}>{item.description}</Text>
+                    <Text testID='language' style={{ ...styles.language, ...styles.text }}>{item.language}</Text>
                 </View>
             </View>
             <View style={styles.stats}>
-                <RepositoryStat name={'Stars'} stat={item.stargazersCount} />
-                <RepositoryStat name={'Forks'} stat={item.forksCount} />
-                <RepositoryStat name={'Reviews'} stat={item.reviewCount} />
-                <RepositoryStat name={'Ratings'} stat={item.ratingAverage} />
+                <RepositoryStat testID='stargazersCount' name='Stars' stat={item.stargazersCount} />
+                <RepositoryStat testID='forksCount' name='Forks' stat={item.forksCount} />
+                <RepositoryStat testID='reviewCount' name='Reviews' stat={item.reviewCount} />
+                <RepositoryStat testID='ratingAverage' name='Ratings' stat={item.ratingAverage} />
             </View>
         </View>
     );

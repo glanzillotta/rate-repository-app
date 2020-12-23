@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import theme from '../theme';
+import abrNumber from '../utils/abrNumber';
 
 const styles = StyleSheet.create({
     tab: {
@@ -12,18 +13,10 @@ const styles = StyleSheet.create({
     },
 });
 
-const abbNumbers = (num) => {
-    if (num > 1000)
-        return (num / 1000).toFixed(2) + 'k';
-    else if (num > 1000000)
-        return (num / 1000).toFixed(2) + 'M';
-    else return num;
-};
-
-const RepositoryStat = ({ name, stat }) => {
+const RepositoryStat = ({ name, stat, testID }) => {
     return (
         <View style={styles.tab}>
-            <Text style={styles.stat}>{abbNumbers(stat)}</Text>
+            <Text testID={testID} style={styles.stat}>{abrNumber(stat)}</Text>
             <Text>{name}</Text>
         </View>
     );
