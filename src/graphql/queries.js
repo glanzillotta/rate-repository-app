@@ -21,7 +21,7 @@ query {
       node{
         ...RepositoryDetail
         }
-        }
+      }
     }
 }
 
@@ -50,7 +50,21 @@ query getRepository($id:ID!){
     repository(id: $id) {
       ...RepositoryDetail
     url
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
   }
+}
 }
 
 ${REPOSITORY}
