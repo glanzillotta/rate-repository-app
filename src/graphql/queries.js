@@ -44,3 +44,14 @@ query{
   }
 }
 `;
+
+export const GET_REPOSITORY = gql`
+query getRepository($id:ID!){
+    repository(id: $id) {
+      ...RepositoryDetail
+    url
+  }
+}
+
+${REPOSITORY}
+`;
