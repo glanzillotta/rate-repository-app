@@ -81,19 +81,7 @@ const ReviewItem = ({ review }) => {
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-
-const SingleRepository = () => {
-    const { id } = useParams();
-
-    const { data, loading } = useQuery(GET_REPOSITORY, {
-        variables: { id },
-    });
-    console.log('loading: ', loading);
-    if (!data || loading) return null;
-
-
-    const reviews = data.repository ? data.repository.reviews.edges.map(edge => edge.node) : [];
-
+const SingleRepositoryContainer = ({repository, reviews}) =>{
     return (
         <FlatList
             data={reviews}
@@ -102,7 +90,7 @@ const SingleRepository = () => {
             ListHeaderComponent={() => {
                 return (
                     <View>
-                        <RepositoryInfo repository={data.repository} />
+                        <RepositoryInfo repository={repository} />
                         <ItemSeparator />
                     </View>
                 );
@@ -110,6 +98,23 @@ const SingleRepository = () => {
             ItemSeparatorComponent={ItemSeparator}
         />
     );
+}
+
+
+const SingleRepository = () => {
+    const { id } = useParams();
+
+    const { data, loading } = useQuery(GET_REPOSITORY, {
+        fetchPolicy: 'cache-and-network',
+        variables: { id },
+    });
+
+    if (!data || loading) return null;
+
+    const reviews = data.repository ? data.repository.reviews.edges.map(edge => edge.node) : [];
+
+    return <SingleRepositoryContainer repository={data.repository} reviews={reviews}/>
+    
 };
 
 export default SingleRepository;

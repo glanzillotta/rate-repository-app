@@ -41,12 +41,14 @@ const AppBar = () => {
         <TouchableWithoutFeedback>
             <View style={styles.container}>
                 <ScrollView horizontal>
-                    <AppBarTab value={'Repository'} />
+                    <AppBarTab value='Repository' />
+                    {isLoggedIn?<AppBarTab value='Create a review' route='review' />: null}
                     {isLoggedIn ?
                         <TouchableOpacity onPress={signOut}>
                             <Text style={styles.tab}>Sign out</Text>
-                        </TouchableOpacity> :
-                        <AppBarTab value={'SignIn'} route={'SignIn'} />}
+                        </TouchableOpacity> 
+                        :
+                        <AppBarTab value='SignIn' route='SignIn' />}
                 </ScrollView>
             </View>
         </TouchableWithoutFeedback>

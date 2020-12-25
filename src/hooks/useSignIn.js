@@ -9,14 +9,12 @@ const useSignIn = () => {
     const [mutate, result] = useMutation(GET_TOKEN);
     const apolloClient = useApolloClient();
     const authStorage = useContext(AuthStorageContext);
-    console.log('authStorage: ', authStorage);
 
     const signIn = async ({ username, password }) => {   
         try {
             const result = await mutate({ variables: { username, password } });
             const userAccess= new AuthStorage();
             await userAccess.setAccessToken(result.data.authorize.accessToken);
-            apolloClient.resetStore();
             return result;
         } catch (e) {
             console.log(e);

@@ -69,3 +69,11 @@ query getRepository($id:ID!){
 
 ${REPOSITORY}
 `;
+
+export const POST_REVIEW= gql`
+mutation ReviewPost($repositoryName: String!, $ownerName: String!, $rating: Int!, $text: String){
+  createReview( review:{repositoryName:$repositoryName, ownerName:$ownerName, rating:$rating, text:$text}){
+      id
+  }
+}
+`;

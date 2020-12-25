@@ -19,11 +19,9 @@ const AppBarTab = ({ value, route }) => {
 
     return (
         <TouchableWithoutFeedback>
-            <View>
                 <Link to={`/${route}`}>
                     <Text style={styles.text}>{value}</Text>
                 </Link>
-            </View>
         </TouchableWithoutFeedback>
     );
 };
