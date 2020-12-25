@@ -77,3 +77,11 @@ mutation ReviewPost($repositoryName: String!, $ownerName: String!, $rating: Int!
   }
 }
 `;
+
+export const CREATE_USER = gql`
+mutation createUser($username: String!, $password: String!){
+  createUser(user:{username:$username, password:$password}){
+    id
+  }
+}
+`;

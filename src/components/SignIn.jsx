@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
 const validationSchema = yup.object().shape({
   username: yup.string().required('Username is required').min(3, 'Username must be at least 3 characters').trim(),
-  password: yup.string().required('Password is required').trim()
+  password: yup.string().required('Password is required').min(6,'Password must be at least 6 characters').trim(),
 });
 
 const SignInForm = ({ onSubmit }) => {
