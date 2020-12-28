@@ -1,7 +1,7 @@
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { useContext } from 'react';
 
-import { GET_TOKEN } from '../graphql/queries';
+import { GET_TOKEN } from '../graphql/mutations';
 import AuthStorage from '../utils/authStorage';
 import AuthStorageContext from '../contexts/AuthStorageContext';
 

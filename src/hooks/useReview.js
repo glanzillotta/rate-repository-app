@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/react-hooks';
 
-import { POST_REVIEW } from '../graphql/queries';
+import { POST_REVIEW } from '../graphql/mutations';
 
 const useReview = () => {
     const [mutate, result] = useMutation(POST_REVIEW);

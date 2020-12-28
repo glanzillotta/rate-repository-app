@@ -3,16 +3,16 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { GET_REPOSITORIES } from '../graphql/queries';
 
-const useRepositories = () => {
+const useRepositories = (order) => {
   const [repositories, setRepositories] = useState();
   const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-    fetchPolicy: 'cache-and-network',
+    variables: { ...order }
   });
   const fetchRepositories = async () => {
-    if(error) return console.error(error);
+    if (error) return console.error(error);
 
-    if(data && !loading)
-        setRepositories(data.repositories);
+    if (data && !loading)
+      setRepositories(data.repositories);
   };
 
   useEffect(() => {
