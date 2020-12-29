@@ -7,8 +7,8 @@ const useReview = () => {
 
     const postReview =  async ({ownerName, repositoryName, text, rating}) =>{
         try {
-            const ratingNumber= Number(rating)
-            const result= await mutate({variables:{ ownerName, repositoryName, text, rating:ratingNumber}})
+            const ratingNumber= Number(rating);
+            const result= await mutate({variables:{ ownerName, repositoryName, text, rating:ratingNumber}});
             return result;
         }catch(e){
             console.log(e);
@@ -16,6 +16,6 @@ const useReview = () => {
     };
 
     return [ postReview, result];
-}
+};
 
 export default useReview; 

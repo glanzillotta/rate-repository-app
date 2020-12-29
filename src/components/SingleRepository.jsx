@@ -1,13 +1,12 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { useParams } from 'react-router-native';
-import { useQuery } from '@apollo/react-hooks';
 import * as Linking from 'expo-linking';
 import { format } from 'date-fns';
 
 import RepositoryItem from './RepositoryItem';
 import theme from '../theme';
-import { GET_REPOSITORY } from '../graphql/queries';
+import useRepository from '../hooks/useRepository';
 
 const styles = StyleSheet.create({
     siteButton: {
@@ -81,7 +80,7 @@ const ReviewItem = ({ review }) => {
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const SingleRepositoryContainer = ({repository, reviews}) =>{
+const SingleRepositoryContainer = ({ repository, reviews, onEndReach }) => {
     return (
         <FlatList
             data={reviews}
@@ -96,25 +95,26 @@ const SingleRepositoryContainer = ({repository, reviews}) =>{
                 );
             }}
             ItemSeparatorComponent={ItemSeparator}
+            onEndReached={onEndReach}
         />
     );
-}
+};
 
 
 const SingleRepository = () => {
     const { id } = useParams();
+    const { repository, reviews, fetchMore } = useRepository(id, 3);
+    console.log('reviews: ', reviews);
 
-    const { data, loading } = useQuery(GET_REPOSITORY, {
-        fetchPolicy: 'cache-and-network',
-        variables: { id },
-    });
-
-    if (!data || loading) return null;
-
-    const reviews = data.repository ? data.repository.reviews.edges.map(edge => edge.node) : [];
-
-    return <SingleRepositoryContainer repository={data.repository} reviews={reviews}/>
+    const onEndReach = () => {
+        fetchMore();
+      };
     
+
+    if(!repository) return null;
+
+    return <SingleRepositoryContainer repository={repository} reviews={reviews} onEndReach={onEndReach}/>;
+
 };
 
 export default SingleRepository;

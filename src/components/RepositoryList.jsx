@@ -100,7 +100,6 @@ const RepositoryList = () => {
     const [order, setOrder] = useState();
     const [searchKeyword, setSearchKeyword] = useState('');
     const { repositories } = useRepositories(order, searchKeyword);
-    console.log('searchKeyword: ', searchKeyword);
     _.debounce(setSearchKeyword, 500);
 
     return <RepositoryListContainer repositories={repositories} setOrder={setOrder} setSearchKeyword={setSearchKeyword} />;

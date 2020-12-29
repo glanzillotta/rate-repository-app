@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Formik, } from 'formik';
 import { Text, TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import * as yup from 'yup';
@@ -6,14 +6,14 @@ import { useHistory } from 'react-router-native';
 
 import theme from '../theme';
 import FormikTextInput from './FormikTextInput';
-import useReview from '../hooks/useReview'
+import useReview from '../hooks/useReview';
 
 const initialValue = {
     ownerName: '',
     name: '',
     rating: '',
     text: '',
-}
+};
 
 const styles = StyleSheet.create({
     createReviewButton: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.backgroundCard,
         paddingTop: 30
     }
-})
+});
 
 const validationSchema = yup.object().shape({
     ownerName: yup.string().required('Owner name is required').min(3, 'Must be at least 3 characters').trim(),
@@ -50,16 +50,16 @@ const ReviewForm = ({ onSubmit }) => {
                 <Text style={styles.createReviewButton}>Create a Review</Text>
             </TouchableWithoutFeedback>
         </View>
-    )
-}
+    );
+};
 
 const ReviewContainer = ({ onSubmit }) => {
     return (
         <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ handleSubmit }) => <ReviewForm onSubmit={handleSubmit} />}
         </Formik>
-    )
-}
+    );
+};
 
 const Review = () => {
     const [postReview] = useReview();
@@ -67,14 +67,14 @@ const Review = () => {
 
     const onSubmit = async (ownerName, text, rating, repositoryName) => {
         try {
-            const { data } = await postReview(ownerName, text, rating, repositoryName)
+            const { data } = await postReview(ownerName, text, rating, repositoryName);
             data ? history.push(`/repositories/${data.id}`) : null;
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
-    return (<ReviewContainer onSubmit={onSubmit} />)
-}
+    return (<ReviewContainer onSubmit={onSubmit} />);
+};
 
 export default Review;
