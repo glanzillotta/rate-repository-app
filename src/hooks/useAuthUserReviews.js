@@ -6,7 +6,7 @@ import { GET_AUTHORIZED_USER } from '../graphql/queries';
 const useAuthUserReviews = (includeReviews = false, first) => {
     const [reviews, setReviews] = useState();
     const [auth, setAuth] = useState();
-    const { data, loading, error, fetchMore } = useQuery(GET_AUTHORIZED_USER, {
+    const { data, loading, error, fetchMore, ...result } = useQuery(GET_AUTHORIZED_USER, {
         variables: { includeReviews, first },
         fetchPolicy: 'cache-and-network',
     });
@@ -14,7 +14,7 @@ const useAuthUserReviews = (includeReviews = false, first) => {
     const fetchAuth = async () => {
         if (error) console.error(error);
 
-        if (data && !loading) {
+        if (data && !loading && data.authorizedUser) {
             setAuth(data.authorizedUser);
             if (data.authorizedUser.reviews)
                 setReviews(data.authorizedUser.reviews.edges.map(edge => edge.node));
@@ -62,6 +62,7 @@ const useAuthUserReviews = (includeReviews = false, first) => {
         auth,
         reviews,
         fetchMore: handleFetchMore,
+        ...result
     };
 };
 

@@ -14,9 +14,13 @@ const useRepository = (id, first) => {
     const fetchRepository = async () => {
         if (error) console.error(error);
 
-        if (data && !loading) {
-            setRepository(data.repository);
-            setReviews(data.repository.reviews.edges.map(edge => edge.node));
+        try {
+            if (data && !loading) {
+                setRepository(data.repository);
+                setReviews(data.repository.reviews.edges.map(edge => edge.node));
+            }
+        } catch (err) {
+            console.error(error);
         }
     };
 

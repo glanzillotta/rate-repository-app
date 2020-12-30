@@ -62,7 +62,7 @@ const ReviewContainer = ({ onSubmit }) => {
 };
 
 const Review = () => {
-    const [postReview] = useReview();
+    const { postReview } = useReview();
     const history = useHistory();
 
     const onSubmit = async (ownerName, text, rating, repositoryName) => {

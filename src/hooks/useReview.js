@@ -1,21 +1,30 @@
 import { useMutation } from '@apollo/react-hooks';
 
-import { POST_REVIEW } from '../graphql/mutations';
+import { POST_REVIEW, REMOVE_REVIEW } from '../graphql/mutations';
 
 const useReview = () => {
-    const [mutate, result] = useMutation(POST_REVIEW);
+    const [create] = useMutation(POST_REVIEW);
+    const [remove] = useMutation(REMOVE_REVIEW);
+
 
     const postReview =  async ({ownerName, repositoryName, text, rating}) =>{
         try {
             const ratingNumber= Number(rating);
-            const result= await mutate({variables:{ ownerName, repositoryName, text, rating:ratingNumber}});
-            return result;
+            return await create({variables:{ ownerName, repositoryName, text, rating:ratingNumber}});
         }catch(e){
             console.log(e);
         }
     };
 
-    return [ postReview, result];
+    const removeReview = async (id) => {
+        try {
+            return await remove({variables:{id}});
+        }catch (e){
+            console.log(e);
+        }
+    };
+
+    return  {postReview, removeReview};
 };
 
 export default useReview; 
