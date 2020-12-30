@@ -1,7 +1,6 @@
 import React from 'react';
 import { NativeRouter } from 'react-router-native';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { Provider as PaperProvider } from 'react-native-paper';
 
 import Main from './src/components/Main';
 import createApolloClient from './src/utils/apolloClient';
@@ -16,9 +15,7 @@ export default function App() {
     <NativeRouter>
       <ApolloProvider client={client}>
         <AuthStorageContext.Provider value={authStorage}>
-          <PaperProvider>
             <Main />
-          </PaperProvider>
         </AuthStorageContext.Provider>
       </ApolloProvider>
     </NativeRouter>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { Button, Menu, Searchbar } from 'react-native-paper';
+import { Button, Menu, Searchbar, Provider as PaperProvider } from 'react-native-paper';
 import _ from 'lodash';
 
 import RepositoryItem from './RepositoryItem';
@@ -102,7 +102,11 @@ const RepositoryList = () => {
     const { repositories } = useRepositories(order, searchKeyword);
     _.debounce(setSearchKeyword, 500);
 
-    return <RepositoryListContainer repositories={repositories} setOrder={setOrder} setSearchKeyword={setSearchKeyword} />;
+    return (
+        <PaperProvider >
+            <RepositoryListContainer repositories={repositories} setOrder={setOrder} setSearchKeyword={setSearchKeyword} />
+        </PaperProvider>
+    );
 };
 
 export default RepositoryList;

@@ -5,7 +5,7 @@ export const GET_TOKEN = gql`
         authorize(credentials:{username:$username, password:$password }){
             accessToken
         }
-\   }
+   }
 `;
 
 export const POST_REVIEW= gql`

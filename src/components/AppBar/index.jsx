@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, ScrollView, TouchableOpacity, Text } from 'react-native';
 import Constants from 'expo-constants';
-import { useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import theme from '../../theme';
 import AppBarTab from './AppBarTab';
-import { AUTHORIZED } from '../../graphql/queries';
-import AuthStorageContext from '../../contexts/AuthStorageContext';
+import useSignIn from '../../hooks/useSignIn';
+import useAuthUserReviews from '../../hooks/useAuthUserReviews';
 
 const styles = StyleSheet.create({
     container: {
@@ -25,24 +24,17 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-    const { data } = useQuery(AUTHORIZED);
-    const apolloClient = useApolloClient();
-    const authStorage = useContext(AuthStorageContext);
-    const isLoggedIn = data ? data.authorizedUser : false;
-
-    const signOut = async () => {
-        await authStorage.removeAccessToken();
-        apolloClient.resetStore();
-    };
-
+    const { auth } = useAuthUserReviews();
+    const { signOut } = useSignIn();
 
     return (
         <TouchableWithoutFeedback>
             <View style={styles.container}>
                 <ScrollView horizontal>
                     <AppBarTab value='Repository' />
-                    {isLoggedIn ? <AppBarTab value='Create a review' route='review' /> : <AppBarTab value='SignUp' route='SignUp' />}
-                    {isLoggedIn ?
+                    {auth ? <AppBarTab value='My reviews' route='user/reviews' /> : null}
+                    {auth ? <AppBarTab value='Create a review' route='review' /> : <AppBarTab value='SignUp' route='SignUp' />}
+                    {auth ?
                         <TouchableOpacity onPress={signOut}>
                             <Text style={styles.tab}>Sign out</Text>
                         </TouchableOpacity>

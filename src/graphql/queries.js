@@ -27,6 +27,15 @@ fragment ReviewDetail on  Review {
 }
 `;
 
+export const PAGE_INFO = gql`
+fragment PageInfoDetail on PageInfo {
+  endCursor
+  startCursor
+  totalCount
+  hasNextPage
+}
+`;
+
 export const GET_REPOSITORIES = gql`
 query getRepositories($orderBy:AllRepositoriesOrderBy, $orderDirection:OrderDirection, $searchKeyword:String){
     repositories(orderBy:$orderBy,orderDirection:$orderDirection, searchKeyword:$searchKeyword){
@@ -50,40 +59,49 @@ query{
 }
 `;
 
+export const GET_AUTHORIZED_USER = gql`
+  query getAuthorizedUser($includeReviews: Boolean = false, $first:Int, $after: String) {
+    authorizedUser {
+      id
+      username
+      reviews(first:$first, after:$after) @include(if: $includeReviews) {
+        edges {
+          node {
+            ...ReviewDetail
+          }
+          cursor
+        }
+        pageInfo {
+          ...PageInfoDetail
+        }
+      }
+    }
+  }
+
+${REVIEW}
+${PAGE_INFO}
+`;
+
 export const GET_REPOSITORY = gql`
 query getRepository($id:ID!, $first:Int, $after:String){
     repository(id: $id) {
-      id
-      ownerAvatarUrl
-      fullName
-      description
-      language
-      forksCount
-      reviewCount
-      ratingAverage
-      stargazersCount
+      ...RepositoryDetail
       url
     reviews(first: $first, after:$after){
       edges {
         node {
-          id
-          text
-          rating
-          createdAt
-          user {
-            id
-            username
-          }
+          ...ReviewDetail
         }
         cursor
       }
       pageInfo {
-        endCursor
-        startCursor
-        totalCount
-        hasNextPage
+        ...PageInfoDetail
       }
     }
   }
 }
+
+${PAGE_INFO}
+${REVIEW},
+${REPOSITORY}
 `;

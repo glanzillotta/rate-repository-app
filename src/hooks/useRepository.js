@@ -35,8 +35,6 @@ const useRepository = (id, first) => {
                 after: data.repository.reviews.pageInfo.endCursor,
             },
             updateQuery: (previousResult, { fetchMoreResult }) => {
-                console.log('fetchMoreResult: ', fetchMoreResult);
-                console.log('previousResult: ', previousResult);
                 const nextResult = {
                     repository: {
                         ...fetchMoreResult.repository,
@@ -49,7 +47,6 @@ const useRepository = (id, first) => {
                         }
                     },
                 };
-                console.log('nextResult:', nextResult);
 
                 return nextResult;
             },

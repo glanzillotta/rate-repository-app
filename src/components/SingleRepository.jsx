@@ -65,7 +65,7 @@ const RepositoryInfo = ({ repository }) => {
     );
 };
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review }) => {
     return (
         <View style={styles.reviewCard}>
             <Text style={styles.reviewRating}>{review.rating}</Text>
@@ -104,7 +104,6 @@ const SingleRepositoryContainer = ({ repository, reviews, onEndReach }) => {
 const SingleRepository = () => {
     const { id } = useParams();
     const { repository, reviews, fetchMore } = useRepository(id, 3);
-    console.log('reviews: ', reviews);
 
     const onEndReach = () => {
         fetchMore();

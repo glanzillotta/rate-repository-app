@@ -6,13 +6,13 @@ const createApolloClient = (authStorage) => {
     uri: Constants.manifest.extra.apolloUri,
     request: async (operation) => {
       try {
-        const accessToken =await authStorage.getAccessToken();
+        const accessToken = await authStorage.getAccessToken();
         operation.setContext({
           headers: {
             authorization: accessToken ? `Bearer ${accessToken}` : '',
           },
         });
-      }catch(e) {
+      } catch (e) {
         console.log(e);
       }
     }

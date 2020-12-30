@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-native';
 import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { Formik, } from 'formik';
 import * as yup from 'yup';
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
 
 const validationSchema = yup.object().shape({
   username: yup.string().required('Username is required').min(3, 'Username must be at least 3 characters').trim(),
-  password: yup.string().required('Password is required').min(6,'Password must be at least 6 characters').trim(),
+  password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters').trim(),
 });
 
 const SignInForm = ({ onSubmit }) => {
@@ -52,26 +51,24 @@ const SignInForm = ({ onSubmit }) => {
   );
 };
 
-export const SignInContainer = ({ onSubmit}) => {
+export const SignInContainer = ({ onSubmit }) => {
   return (<Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
     {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
   </Formik>);
 };
 
 const SignIn = () => {
-  const [signIn] = useSignIn();
-  const history = useHistory();
+  const { signIn } = useSignIn();
 
-  const onSubmit = async({ username, password }) => {
+  const onSubmit = async ({ username, password }) => {
     try {
-      const { data } = await signIn({ username, password });
-      data ? history.push('/') : null;
+      await signIn({ username, password });
     } catch (e) {
       console.log(e);
     }
   };
 
-  return<SignInContainer onSubmit={onSubmit} />;
+  return <SignInContainer onSubmit={onSubmit} />;
 };
 
 export default SignIn;
